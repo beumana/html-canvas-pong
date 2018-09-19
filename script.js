@@ -17,7 +17,7 @@ window.onload = function() {
 function moveEverything(){
     ballX += ballSpeedX;
     ballSpeedX += .01
-    if (ballX >= canvas.width - 20) {
+    if (ballX >= canvas.width) {
         ballSpeedX = -ballSpeedX;
     } else if (ballX <= 0) {
         ballSpeedX = -ballSpeedX;
@@ -25,12 +25,21 @@ function moveEverything(){
 }
 
 function drawEverything() {
-    canvasContext.fillStyle = 'black';
-    canvasContext.fillRect(0,0,canvas.width,canvas.height);
+    colorRect(0, 0, canvas.width,canvas.height, 'black'); // draw background
+    colorRect(20, 200, 10, 100, 'white'); // draw paddle
+    colorCircle(ballX, 150, 10, 'white'); // draw ball
+}
 
-    canvasContext.fillStyle = 'white';
-    canvasContext.fillRect(20,200,10,100);
+// Creates circles
+function colorCircle(centerX, centerY, radius, drawColor) {
+    canvasContext.fillStyle = drawColor;
+    canvasContext.beginPath();
+    canvasContext.arc(centerX, centerY, radius, 0, Math.PI*2, true);
+    canvasContext.fill();
+}
 
-    canvasContext.fillStyle = 'red';
-    canvasContext.fillRect(ballX,100,20,20);
+// Creates rectangles
+function colorRect(leftX, topY, width, height, drawColor) {
+    canvasContext.fillStyle = drawColor;
+    canvasContext.fillRect(leftX, topY, width, height);
 }
